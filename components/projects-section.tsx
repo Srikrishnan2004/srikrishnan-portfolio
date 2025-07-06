@@ -1,6 +1,9 @@
+"use client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Code } from "lucide-react"
+import { useCardAnimation } from "@/hooks/use-card-animation"
+import { useState } from "react"
 
 export function ProjectsSection() {
   const projects = [
@@ -43,33 +46,90 @@ export function ProjectsSection() {
   ]
 
   return (
-    <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900">
+    <section id="projects" className="py-16 px-4 bg-gray-50 dark:bg-gray-900 animate-fade-in" aria-labelledby="projects-heading">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-12">Projects</h2>
+        <h2 id="projects-heading" className="text-3xl font-bold text-center mb-12 animate-fade-in-up">Projects</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow h-full">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <Code className="h-5 w-5 text-blue-600" />
-                  {project.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, techIndex) => (
-                    <Badge key={techIndex} variant="secondary" className="text-xs">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            <ProjectCard key={index} project={project} index={index} />
           ))}
         </div>
       </div>
     </section>
+  )
+}
+
+interface ProjectCardProps {
+  project: {
+    title: string
+    description: string
+    technologies: string[]
+  }
+  index: number
+}
+
+function ProjectCard({ project, index }: ProjectCardProps) {
+  const { isAnimating, animationType, handleCardClick, handleCardMouseEnter, handleCardMouseLeave } = useCardAnimation()
+  const [isHovered, setIsHovered] = useState(false)
+
+  const getAnimationClass = () => {
+    if (isAnimating && animationType) {
+      return `animate-${animationType}`
+    }
+    return ''
+  }
+
+  const getStaggerDelay = () => {
+    return `animation-delay-${(index * 100)}ms`
+  }
+
+  return (
+    <Card 
+      className={`
+        hover:shadow-xl transition-all duration-300 h-full cursor-pointer
+        transform hover:scale-105 hover:-translate-y-2
+        ${getAnimationClass()}
+        animate-fade-in-up
+        ${getStaggerDelay()}
+        ${isHovered ? 'shadow-2xl' : 'shadow-lg'}
+      `}
+      onClick={handleCardClick}
+      onMouseEnter={() => {
+        setIsHovered(true)
+        handleCardMouseEnter()
+      }}
+      onMouseLeave={() => {
+        setIsHovered(false)
+        handleCardMouseLeave()
+      }}
+      style={{
+        animationDelay: `${index * 100}ms`,
+        animationFillMode: 'both'
+      }}
+    >
+      <CardHeader>
+        <CardTitle className="flex items-center gap-3">
+          <Code className="h-5 w-5 text-blue-600 animate-float" aria-hidden="true" />
+          {project.title}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="p-6">
+        <p className="text-gray-600 dark:text-gray-400 mb-4 transition-colors duration-300">
+          {project.description}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.map((tech, techIndex) => (
+            <Badge 
+              key={techIndex} 
+              variant="secondary" 
+              className="text-xs transition-all duration-300 hover:scale-110 hover:bg-blue-100 dark:hover:bg-blue-900"
+            >
+              {tech}
+            </Badge>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
   )
 }

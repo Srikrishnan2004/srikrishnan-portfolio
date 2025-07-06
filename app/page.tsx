@@ -8,14 +8,16 @@ import { HonoursSection } from "@/components/honours-section"
 
 export default function Portfolio() {
   return (
-    <div className="min-h-screen bg-background">
-      <ContactSection />
-      <EducationSection />
-      <SkillsSection />
-      <InternshipsSection />
-      <ProjectsSection />
-      <CertificationsSection />
-      <HonoursSection />
-    </div>
+    <main className="min-h-screen bg-background scroll-smooth" role="main">
+      <div className="animate-fade-in">
+        <ContactSection />
+        <EducationSection />
+        <SkillsSection />
+        <InternshipsSection />
+        <ProjectsSection />
+        <CertificationsSection />
+        <HonoursSection />
+      </div>
+    </main>
   )
 }
