@@ -1,9 +1,59 @@
 "use client"
+import React from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Code, Wrench, Database, Users } from "lucide-react"
+import { Code, Wrench, Database, Users, Award, Users as UsersIcon, Search, Brain, MessageCircle, Timer, Handshake, BookOpen } from "lucide-react"
 import { motion } from "framer-motion"
 import { BrizerSection, BrizerCard, BrizerBackground } from "@/components/ui/brizer-effect"
+
+// Map skill names to logo URLs (Simple Icons CDN or similar)
+const skillLogos: Record<string, string> = {
+  // Languages
+  "C": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
+  "C++": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+  "Python": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+  "Java": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+  "HTML": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+  "CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+  "JavaScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+  "TypeScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+  "SQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+  "Go": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg",
+  "Dart": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg",
+  // Frameworks
+  "Node.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+  "Express.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+  "React.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+  "Bootstrap": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-plain.svg",
+  "Flutter": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
+  "Spring Boot": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
+  "Django": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg",
+  "Golang": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg",
+  "Next.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+  // Tools/Platforms
+  "Git": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+  "GitHub": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+  "Bitbucket": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bitbucket/bitbucket-original.svg",
+  "JIRA": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg",
+  "Power BI": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/powerbi/powerbi-original.svg",
+  "MySQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+  "PostgreSQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+  "MongoDB": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+  "Firebase": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+  "Oracle SQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg",
+  "Google Cloud Platform": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+}
+
+// Map soft skills to Lucide icons or emoji
+const softSkillIcons: Record<string, React.ReactNode> = {
+  "Leadership": <Award className="w-6 h-6 text-blue-600" />,
+  "Time-management": <Timer className="w-6 h-6 text-blue-600" />,
+  "Communication": <MessageCircle className="w-6 h-6 text-blue-600" />,
+  "Teamwork": <UsersIcon className="w-6 h-6 text-blue-600" />,
+  "Googling": <Search className="w-6 h-6 text-blue-600" />,
+  "Stack Overflow": <BookOpen className="w-6 h-6 text-blue-600" />,
+  "DSA": <Brain className="w-6 h-6 text-blue-600" />,
+}
 
 export function SkillsSection() {
   const skillCategories = [
@@ -150,19 +200,37 @@ function SkillCard({ category, index }: SkillCardProps) {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-3 items-center">
               {category.skills.map((skill, skillIndex) => (
                 <motion.div
                   key={skillIndex}
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Badge 
-                    variant="secondary"
-                    className="transition-all duration-300 hover:bg-blue-100 dark:hover:bg-blue-900"
-                  >
-                    {skill}
-                  </Badge>
+                  {category.title === "Professional Skills" && softSkillIcons[skill] ? (
+                    <div className="flex flex-col items-center justify-center w-14 h-14 bg-white dark:bg-gray-800 rounded-lg shadow-sm p-2">
+                      {softSkillIcons[skill]}
+                      <span className="text-xs mt-1 text-center text-gray-700 dark:text-gray-300">{skill}</span>
+                    </div>
+                  ) : skillLogos[skill] ? (
+                    <div className="flex flex-col items-center justify-center w-14 h-14 bg-white dark:bg-gray-800 rounded-lg shadow-sm p-2">
+                      <img
+                        src={skillLogos[skill]}
+                        alt={skill + " logo"}
+                        className="w-8 h-8 object-contain mb-1"
+                        loading="lazy"
+                        draggable="false"
+                      />
+                      <span className="text-xs mt-1 text-center text-gray-700 dark:text-gray-300">{skill}</span>
+                    </div>
+                  ) : (
+                    <Badge 
+                      variant="secondary"
+                      className="transition-all duration-300 hover:bg-blue-100 dark:hover:bg-blue-900"
+                    >
+                      {skill}
+                    </Badge>
+                  )}
                 </motion.div>
               ))}
             </div>
