@@ -40,7 +40,7 @@ export function CursorTrail({
     <div className="fixed inset-0 pointer-events-none z-50">
       {trail.map((point, index) => (
         <motion.div
-          key={point.id}
+          key={`${point.id}-${index}`}
           className="absolute rounded-full"
           style={{
             left: point.x - size / 2,
@@ -91,7 +91,7 @@ export function GlowingCursorTrail({
     <div className="fixed inset-0 pointer-events-none z-50">
       {trail.map((point, index) => (
         <motion.div
-          key={point.id}
+          key={`${point.id}-${index}`}
           className="absolute rounded-full"
           style={{
             left: point.x - size / 2,

@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Briefcase, Calendar } from "lucide-react"
 import { useCardAnimation } from "@/hooks/use-card-animation"
 import { useState } from "react"
+import { motion } from "framer-motion"
 
 export function InternshipsSection() {
   const internships = [
@@ -26,7 +27,15 @@ export function InternshipsSection() {
   ]
 
   return (
-    <section id="internships" className="py-16 px-4 animate-fade-in" aria-labelledby="internships-heading">
+    <motion.section
+      id="internships"
+      className="py-16 px-4"
+      aria-labelledby="internships-heading"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.8 }}
+    >
       <div className="max-w-4xl mx-auto">
         <h2 id="internships-heading" className="text-3xl font-bold text-center mb-12 animate-fade-in-up">Internships</h2>
 
@@ -41,7 +50,7 @@ export function InternshipsSection() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }
 
@@ -88,8 +97,8 @@ function InternshipCard({ internship, index }: InternshipCardProps) {
       <div className={`w-full md:w-5/12 ${index % 2 === 0 ? "md:pr-8" : "md:pl-8"}`}>
         <Card 
           className={`
-            hover:shadow-xl transition-all duration-300 bg-white dark:bg-gray-900 relative z-20 cursor-pointer
-            transform hover:scale-105 hover:-translate-y-1
+            hover:shadow-xl transition-transform duration-300 bg-white dark:bg-gray-900 relative z-20 cursor-pointer
+            scale-100 translate-y-0 hover:scale-105 hover:-translate-y-1
             ${getAnimationClass()}
             ${slideAnimation}
             ${isHovered ? 'shadow-2xl' : 'shadow-lg'}

@@ -73,6 +73,57 @@ export function ContactSection() {
               </CardContent>
             </Card>
           </BrizerCard>
+          {/* Contact Us Form */}
+          <div className="max-w-2xl mx-auto mt-12">
+            <BrizerCard delay={0.6} className="">
+              <Card>
+                <CardContent className="p-8">
+                  <h2 className="text-2xl font-bold mb-4 text-blue-700 dark:text-blue-300 text-center">Contact Us</h2>
+                  <form className="space-y-5" autoComplete="off" onSubmit={e => e.preventDefault()}>
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Name</label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        required
+                        className="w-full rounded-md border border-blue-200 dark:border-blue-800 bg-white dark:bg-gray-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-700 text-gray-900 dark:text-gray-100 shadow-sm"
+                        placeholder="Your Name"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Email</label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        className="w-full rounded-md border border-blue-200 dark:border-blue-800 bg-white dark:bg-gray-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-700 text-gray-900 dark:text-gray-100 shadow-sm"
+                        placeholder="you@email.com"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Message</label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        rows={4}
+                        required
+                        className="w-full rounded-md border border-blue-200 dark:border-blue-800 bg-white dark:bg-gray-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-700 text-gray-900 dark:text-gray-100 shadow-sm"
+                        placeholder="How can we help you?"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      className="w-full py-2 px-4 rounded-md bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-semibold shadow transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-700"
+                    >
+                      Send Message
+                    </button>
+                  </form>
+                </CardContent>
+              </Card>
+            </BrizerCard>
+          </div>
         </div>
       </BrizerBackground>
     </BrizerSection>

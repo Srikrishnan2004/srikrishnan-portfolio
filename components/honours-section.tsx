@@ -75,8 +75,8 @@ function AchievementCard({ category, index }: AchievementCardProps) {
   return (
     <Card 
       className={`
-        hover:shadow-xl transition-all duration-300 cursor-pointer
-        transform hover:scale-105 hover:-translate-y-1
+        hover:shadow-xl transition-transform duration-300 cursor-pointer
+        scale-100 translate-y-0 hover:scale-105 hover:-translate-y-1
         ${getAnimationClass()}
         animate-fade-in-up
         ${isHovered ? 'shadow-2xl' : 'shadow-lg'}
