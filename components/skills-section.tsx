@@ -2,8 +2,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Code, Wrench, Database, Users } from "lucide-react"
-import { useCardAnimation } from "@/hooks/use-card-animation"
-import { useState } from "react"
+import { motion } from "framer-motion"
+import { BrizerSection, BrizerCard, BrizerBackground } from "@/components/ui/brizer-effect"
 
 export function SkillsSection() {
   const skillCategories = [
@@ -51,18 +51,59 @@ export function SkillsSection() {
     },
   ]
 
-  return (
-    <section id="skills" className="py-16 px-4 bg-gray-50 dark:bg-gray-900 animate-fade-in" aria-labelledby="skills-heading">
-      <div className="max-w-4xl mx-auto">
-        <h2 id="skills-heading" className="text-3xl font-bold text-center mb-12 animate-fade-in-up">Skills Summary</h2>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2
+      }
+    }
+  }
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {skillCategories.map((category, index) => (
-            <SkillCard key={index} category={category} index={index} />
-          ))}
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1
+    }
+  }
+
+  return (
+    <BrizerSection 
+      id="skills" 
+      className="py-16 px-4 bg-gray-50 dark:bg-gray-900" 
+      aria-labelledby="skills-heading"
+    >
+      <BrizerBackground>
+        <div className="max-w-4xl mx-auto relative z-10">
+          <motion.h2 
+            id="skills-heading" 
+            className="text-3xl font-bold text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            Skills Summary
+          </motion.h2>
+
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {skillCategories.map((category, index) => (
+              <SkillCard key={index} category={category} index={index} />
+            ))}
+          </motion.div>
         </div>
-      </div>
-    </section>
+      </BrizerBackground>
+    </BrizerSection>
   )
 }
 
@@ -76,58 +117,58 @@ interface SkillCardProps {
 }
 
 function SkillCard({ category, index }: SkillCardProps) {
-  const { isAnimating, animationType, handleCardClick, handleCardMouseEnter, handleCardMouseLeave } = useCardAnimation()
-  const [isHovered, setIsHovered] = useState(false)
-
-  const getAnimationClass = () => {
-    if (isAnimating && animationType) {
-      return `animate-${animationType}`
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1
     }
-    return ''
   }
 
   return (
-    <Card 
-      className={`
-        hover:shadow-xl transition-all duration-300 cursor-pointer
-        transform hover:scale-105 hover:-translate-y-1
-        ${getAnimationClass()}
-        animate-fade-in-up
-        ${isHovered ? 'shadow-2xl' : 'shadow-lg'}
-      `}
-      onClick={handleCardClick}
-      onMouseEnter={() => {
-        setIsHovered(true)
-        handleCardMouseEnter()
+    <motion.div
+      variants={itemVariants}
+      whileHover={{
+        y: -8,
+        scale: 1.02,
+        transition: { duration: 0.3, ease: "easeOut" }
       }}
-      onMouseLeave={() => {
-        setIsHovered(false)
-        handleCardMouseLeave()
-      }}
-      style={{
-        animationDelay: `${index * 150}ms`,
-        animationFillMode: 'both'
-      }}
+      transition={{ delay: index * 0.15 }}
     >
-      <CardHeader>
-        <CardTitle className="flex items-center gap-3">
-          <category.icon className="h-6 w-6 text-blue-600 animate-float" aria-hidden="true" />
-          {category.title}
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="flex flex-wrap gap-2">
-          {category.skills.map((skill, skillIndex) => (
-            <Badge 
-              key={skillIndex} 
-              variant="secondary"
-              className="transition-all duration-300 hover:scale-110 hover:bg-blue-100 dark:hover:bg-blue-900"
-            >
-              {skill}
-            </Badge>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+      <BrizerCard className="h-full" delay={index * 0.15}>
+        <Card className="h-full cursor-pointer">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-3">
+              <motion.div
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <category.icon className="h-6 w-6 text-blue-600" aria-hidden="true" />
+              </motion.div>
+              {category.title}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2">
+              {category.skills.map((skill, skillIndex) => (
+                <motion.div
+                  key={skillIndex}
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Badge 
+                    variant="secondary"
+                    className="transition-all duration-300 hover:bg-blue-100 dark:hover:bg-blue-900"
+                  >
+                    {skill}
+                  </Badge>
+                </motion.div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </BrizerCard>
+    </motion.div>
   )
 }

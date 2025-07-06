@@ -2,8 +2,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Code } from "lucide-react"
-import { useCardAnimation } from "@/hooks/use-card-animation"
-import { useState } from "react"
+import { motion } from "framer-motion"
+import { BrizerSection, BrizerCard, BrizerBackground } from "@/components/ui/brizer-effect"
 
 export function ProjectsSection() {
   const projects = [
@@ -45,18 +45,59 @@ export function ProjectsSection() {
     },
   ]
 
-  return (
-    <section id="projects" className="py-16 px-4 bg-gray-50 dark:bg-gray-900 animate-fade-in" aria-labelledby="projects-heading">
-      <div className="max-w-6xl mx-auto">
-        <h2 id="projects-heading" className="text-3xl font-bold text-center mb-12 animate-fade-in-up">Projects</h2>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  }
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
-          ))}
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1
+    }
+  }
+
+  return (
+    <BrizerSection 
+      id="projects" 
+      className="py-16 px-4 bg-gray-50 dark:bg-gray-900" 
+      aria-labelledby="projects-heading"
+    >
+      <BrizerBackground>
+        <div className="max-w-6xl mx-auto relative z-10">
+          <motion.h2 
+            id="projects-heading" 
+            className="text-3xl font-bold text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            Projects
+          </motion.h2>
+
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {projects.map((project, index) => (
+              <ProjectCard key={index} project={project} index={index} />
+            ))}
+          </motion.div>
         </div>
-      </div>
-    </section>
+      </BrizerBackground>
+    </BrizerSection>
   )
 }
 
@@ -70,66 +111,61 @@ interface ProjectCardProps {
 }
 
 function ProjectCard({ project, index }: ProjectCardProps) {
-  const { isAnimating, animationType, handleCardClick, handleCardMouseEnter, handleCardMouseLeave } = useCardAnimation()
-  const [isHovered, setIsHovered] = useState(false)
-
-  const getAnimationClass = () => {
-    if (isAnimating && animationType) {
-      return `animate-${animationType}`
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1
     }
-    return ''
-  }
-
-  const getStaggerDelay = () => {
-    return `animation-delay-${(index * 100)}ms`
   }
 
   return (
-    <Card 
-      className={`
-        hover:shadow-xl transition-all duration-300 h-full cursor-pointer
-        transform hover:scale-105 hover:-translate-y-2
-        ${getAnimationClass()}
-        animate-fade-in-up
-        ${getStaggerDelay()}
-        ${isHovered ? 'shadow-2xl' : 'shadow-lg'}
-      `}
-      onClick={handleCardClick}
-      onMouseEnter={() => {
-        setIsHovered(true)
-        handleCardMouseEnter()
+    <motion.div
+      variants={itemVariants}
+      whileHover={{
+        y: -8,
+        scale: 1.02,
+        transition: { duration: 0.3, ease: "easeOut" }
       }}
-      onMouseLeave={() => {
-        setIsHovered(false)
-        handleCardMouseLeave()
-      }}
-      style={{
-        animationDelay: `${index * 100}ms`,
-        animationFillMode: 'both'
-      }}
+      transition={{ delay: index * 0.1 }}
     >
-      <CardHeader>
-        <CardTitle className="flex items-center gap-3">
-          <Code className="h-5 w-5 text-blue-600 animate-float" aria-hidden="true" />
-          {project.title}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-6">
-        <p className="text-gray-600 dark:text-gray-400 mb-4 transition-colors duration-300">
-          {project.description}
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {project.technologies.map((tech, techIndex) => (
-            <Badge 
-              key={techIndex} 
-              variant="secondary" 
-              className="text-xs transition-all duration-300 hover:scale-110 hover:bg-blue-100 dark:hover:bg-blue-900"
-            >
-              {tech}
-            </Badge>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+      <BrizerCard className="h-full" delay={index * 0.1}>
+        <Card className="h-full cursor-pointer">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-3">
+              <motion.div
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <Code className="h-5 w-5 text-blue-600" aria-hidden="true" />
+              </motion.div>
+              {project.title}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-6">
+            <p className="text-gray-600 dark:text-gray-400 mb-4 transition-colors duration-300">
+              {project.description}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {project.technologies.map((tech, techIndex) => (
+                <motion.div
+                  key={techIndex}
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Badge 
+                    variant="secondary" 
+                    className="text-xs transition-all duration-300 hover:bg-blue-100 dark:hover:bg-blue-900"
+                  >
+                    {tech}
+                  </Badge>
+                </motion.div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </BrizerCard>
+    </motion.div>
   )
 }

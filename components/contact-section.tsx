@@ -1,52 +1,102 @@
+"use client"
 import { Card, CardContent } from "@/components/ui/card"
 import { Mail, Phone, Linkedin, Github } from "lucide-react"
+import { motion } from "framer-motion"
+import { BrizerSection, BrizerCard, BrizerBackground } from "@/components/ui/brizer-effect"
 
 export function ContactSection() {
-  return (
-    <section id="contact" className="py-16 px-4 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 animate-fade-in" aria-labelledby="contact-heading">
-      <div className="max-w-4xl mx-auto text-center">
-        <h1 id="contact-heading" className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 animate-fade-in-up">
-          Srikrishnan Velayutham
-        </h1>
-        <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-          Computer Science Engineering Student
-        </p>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  }
 
-        <Card className="max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '400ms' }}>
-          <CardContent className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <ContactLink 
-                icon={Mail} 
-                href="mailto:srikrishnan2210608@ssn.edu.in"
-                text="srikrishnan2210608@ssn.edu.in"
-                delay={600}
-                aria-label="Email Srikrishnan Velayutham"
-              />
-              <ContactLink 
-                icon={Phone} 
-                text="+91 63692 81847"
-                delay={700}
-                aria-label="Phone number"
-              />
-              <ContactLink 
-                icon={Linkedin} 
-                href="https://www.linkedin.com/in/srikrishnan-velayutham-9727b0342"
-                text="LinkedIn Profile"
-                delay={800}
-                aria-label="Visit Srikrishnan's LinkedIn profile"
-              />
-              <ContactLink 
-                icon={Github} 
-                href="https://github.com/Srikrishnan2004"
-                text="GitHub Profile"
-                delay={900}
-                aria-label="Visit Srikrishnan's GitHub profile"
-              />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </section>
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0
+    }
+  }
+
+  return (
+    <BrizerSection 
+      id="contact" 
+      className="py-16 px-4 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800" 
+      aria-labelledby="contact-heading"
+    >
+      <BrizerBackground>
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.h1 
+            id="contact-heading" 
+            className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4"
+            variants={itemVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            Srikrishnan Velayutham
+          </motion.h1>
+          
+          <motion.p 
+            className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8"
+            variants={itemVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            Computer Science Engineering Student
+          </motion.p>
+
+          <BrizerCard className="max-w-2xl mx-auto" delay={0.4}>
+            <Card>
+              <CardContent className="p-6">
+                <motion.div 
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                  variants={containerVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <ContactLink 
+                    icon={Mail} 
+                    href="mailto:srikrishnan2210608@ssn.edu.in"
+                    text="srikrishnan2210608@ssn.edu.in"
+                    delay={0.6}
+                    aria-label="Email Srikrishnan Velayutham"
+                  />
+                  <ContactLink 
+                    icon={Phone} 
+                    text="+91 63692 81847"
+                    delay={0.7}
+                    aria-label="Phone number"
+                  />
+                  <ContactLink 
+                    icon={Linkedin} 
+                    href="https://www.linkedin.com/in/srikrishnan-velayutham-9727b0342"
+                    text="LinkedIn Profile"
+                    delay={0.8}
+                    aria-label="Visit Srikrishnan's LinkedIn profile"
+                  />
+                  <ContactLink 
+                    icon={Github} 
+                    href="https://github.com/Srikrishnan2004"
+                    text="GitHub Profile"
+                    delay={0.9}
+                    aria-label="Visit Srikrishnan's GitHub profile"
+                  />
+                </motion.div>
+              </CardContent>
+            </Card>
+          </BrizerCard>
+        </div>
+      </BrizerBackground>
+    </BrizerSection>
   )
 }
 
@@ -59,37 +109,61 @@ interface ContactLinkProps {
 }
 
 function ContactLink({ icon: Icon, href, text, delay, 'aria-label': ariaLabel }: ContactLinkProps) {
+  const linkVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0
+    }
+  }
+
   const content = (
-    <div className="flex items-center gap-3 group">
-      <Icon className="h-5 w-5 text-blue-600 animate-float" aria-hidden="true" />
+    <motion.div 
+      className="flex items-center gap-3 group"
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.2 }}
+    >
+      <motion.div
+        animate={{ rotate: [0, 10, -10, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <Icon className="h-5 w-5 text-blue-600" aria-hidden="true" />
+      </motion.div>
       <span className="text-sm group-hover:text-blue-600 transition-all duration-300 group-hover:scale-105">
         {text}
       </span>
-    </div>
+    </motion.div>
   )
 
   if (href) {
     return (
-      <a
+      <motion.a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="animate-fade-in-up hover:scale-105 transition-transform duration-300"
-        style={{ animationDelay: `${delay}ms`, animationFillMode: 'both' }}
+        className="block"
+        variants={linkVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.3 }}
         aria-label={ariaLabel}
       >
         {content}
-      </a>
+      </motion.a>
     )
   }
 
   return (
-    <div 
-      className="animate-fade-in-up"
-      style={{ animationDelay: `${delay}ms`, animationFillMode: 'both' }}
+    <motion.div 
+      variants={linkVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
       aria-label={ariaLabel}
     >
       {content}
-    </div>
+    </motion.div>
   )
 }

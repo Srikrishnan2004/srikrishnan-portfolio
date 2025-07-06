@@ -1,3 +1,4 @@
+"use client"
 import { ContactSection } from "@/components/contact-section"
 import { EducationSection } from "@/components/education-section"
 import { SkillsSection } from "@/components/skills-section"
@@ -5,19 +6,56 @@ import { InternshipsSection } from "@/components/internships-section"
 import { ProjectsSection } from "@/components/projects-section"
 import { CertificationsSection } from "@/components/certifications-section"
 import { HonoursSection } from "@/components/honours-section"
+import { motion } from "framer-motion"
+import { GlowingCursorTrail } from "@/components/ui/cursor-trail"
 
 export default function Portfolio() {
+  const pageVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 }
+  }
+
+  const containerVariants = {
+    initial: { opacity: 0 },
+    animate: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  }
+
   return (
-    <main className="min-h-screen bg-background scroll-smooth" role="main">
-      <div className="animate-fade-in">
-        <ContactSection />
-        <EducationSection />
-        <SkillsSection />
-        <InternshipsSection />
-        <ProjectsSection />
-        <CertificationsSection />
-        <HonoursSection />
-      </div>
-    </main>
+    <>
+      <GlowingCursorTrail 
+        count={8} 
+        size={6} 
+        color="rgba(59, 130, 246, 0.6)" 
+        duration={0.8} 
+      />
+      <motion.main 
+        className="min-h-screen bg-background scroll-smooth" 
+        role="main"
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+      >
+        <motion.div 
+          variants={containerVariants}
+          initial="initial"
+          animate="animate"
+        >
+          <ContactSection />
+          <EducationSection />
+          <SkillsSection />
+          <InternshipsSection />
+          <ProjectsSection />
+          <CertificationsSection />
+          <HonoursSection />
+        </motion.div>
+      </motion.main>
+    </>
   )
 }
