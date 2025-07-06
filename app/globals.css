@@ -4,9 +4,16 @@
 
 html {
   scroll-behavior: smooth;
+  /* Hide vertical scrollbar but allow scrolling */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 body {
+  min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
 }
 

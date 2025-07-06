@@ -32,27 +32,6 @@ export function ContactSection() {
     >
       <BrizerBackground>
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <motion.h1 
-            id="contact-heading" 
-            className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4"
-            variants={itemVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            Srikrishnan Velayutham
-          </motion.h1>
-          
-          <motion.p 
-            className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8"
-            variants={itemVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            Computer Science Engineering Student
-          </motion.p>
-
           <BrizerCard className="max-w-2xl mx-auto" delay={0.4}>
             <Card>
               <CardContent className="p-6">

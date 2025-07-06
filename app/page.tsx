@@ -1,4 +1,5 @@
 "use client"
+import { HeroSection } from "@/components/hero-section"
 import { ContactSection } from "@/components/contact-section"
 import { EducationSection } from "@/components/education-section"
 import { SkillsSection } from "@/components/skills-section"
@@ -47,13 +48,14 @@ export default function Portfolio() {
           initial="initial"
           animate="animate"
         >
-          <ContactSection />
+          <HeroSection />
           <EducationSection />
           <SkillsSection />
           <InternshipsSection />
           <ProjectsSection />
           <CertificationsSection />
           <HonoursSection />
+          <ContactSection />
         </motion.div>
       </motion.main>
     </>
