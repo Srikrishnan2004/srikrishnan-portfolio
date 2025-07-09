@@ -8,7 +8,6 @@ import { ProjectsSection } from "@/components/projects-section"
 import { CertificationsSection } from "@/components/certifications-section"
 import { HonoursSection } from "@/components/honours-section"
 import { motion } from "framer-motion"
-import { GlowingCursorTrail } from "@/components/ui/cursor-trail"
 
 export default function Portfolio() {
   const pageVariants = {
@@ -29,12 +28,6 @@ export default function Portfolio() {
 
   return (
     <>
-      <GlowingCursorTrail 
-        count={8} 
-        size={6} 
-        color="rgba(59, 130, 246, 0.6)" 
-        duration={0.8} 
-      />
       <motion.main 
         className="min-h-screen bg-background scroll-smooth" 
         role="main"

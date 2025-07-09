@@ -41,12 +41,11 @@ export function HonoursSection() {
   return (
     <motion.section
       initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      id="honours" className="py-16 px-4 bg-gray-50 dark:bg-gray-900 animate-fade-in" aria-labelledby="honours-heading">
+      id="honours" className="py-16 px-4 bg-gray-50 dark:bg-gray-900" aria-labelledby="honours-heading">
       <div className="max-w-4xl mx-auto">
-        <h2 id="honours-heading" className="text-3xl font-bold text-center mb-12 animate-fade-in-up">Honours & Experience</h2>
+        <h2 id="honours-heading" className="text-3xl font-bold text-center mb-12">Honours & Experience</h2>
 
         <div className="space-y-6">
           {achievements.map((category, index) => (

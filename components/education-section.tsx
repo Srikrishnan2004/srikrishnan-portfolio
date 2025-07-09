@@ -28,12 +28,11 @@ export function EducationSection() {
   return (
     <motion.section
       initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      id="education" className="py-16 px-4 animate-fade-in" aria-labelledby="education-heading">
+      id="education" className="py-16 px-4" aria-labelledby="education-heading">
       <div className="max-w-4xl mx-auto">
-        <h2 id="education-heading" className="text-3xl font-bold text-center mb-12 animate-fade-in-up">Education</h2>
+        <h2 id="education-heading" className="text-3xl font-bold text-center mb-12">Education</h2>
         <div className="relative">
           {/* Timeline line */}
           <div className="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-blue-100 dark:bg-blue-900 hidden md:block animate-fade-in"></div>

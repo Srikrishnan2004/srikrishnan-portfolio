@@ -19,7 +19,7 @@ export function HeroSection() {
               Building web applications,<br />
               mobile apps, and digital<br />
               <span className="inline-flex items-center gap-2">
-                <span className="inline-block align-middle text-blue-600 dark:text-blue-400">solutions.</span>
+                <span className="inline-block align-middle text-blue-600 dark:text-blue-300">solutions.</span>
               </span>
             </motion.h1>
             <motion.p

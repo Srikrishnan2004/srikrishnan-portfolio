@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import ClientOGLBackgroundWrapper from "@/components/ClientOGLBackgroundWrapper";
 
 export const metadata: Metadata = {
   title: 'Srikrishnan Velayutham - Full Stack Developer & Computer Science Student',
@@ -74,11 +75,7 @@ export const metadata: Metadata = {
   classification: 'Portfolio Website',
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -169,7 +166,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <ClientOGLBackgroundWrapper />
+        {children}
+      </body>
     </html>
-  )
+  );
 }
