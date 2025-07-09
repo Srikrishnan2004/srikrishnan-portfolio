@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Trophy, Award, Users, Target } from "lucide-react"
 import { useCardAnimation } from "@/hooks/use-card-animation"
 import { useState } from "react"
+import { motion } from "framer-motion";
 
 export function HonoursSection() {
   const achievements = [
@@ -38,7 +39,12 @@ export function HonoursSection() {
   ]
 
   return (
-    <section id="honours" className="py-16 px-4 bg-gray-50 dark:bg-gray-900 animate-fade-in" aria-labelledby="honours-heading">
+    <motion.section
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      id="honours" className="py-16 px-4 bg-gray-50 dark:bg-gray-900 animate-fade-in" aria-labelledby="honours-heading">
       <div className="max-w-4xl mx-auto">
         <h2 id="honours-heading" className="text-3xl font-bold text-center mb-12 animate-fade-in-up">Honours & Experience</h2>
 
@@ -48,7 +54,7 @@ export function HonoursSection() {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }
 

@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { BadgeIcon as Certificate, BookOpen } from "lucide-react"
 import { useCardAnimation } from "@/hooks/use-card-animation"
 import { useState } from "react"
+import { motion } from "framer-motion";
 
 export function CertificationsSection() {
   const certifications = [
@@ -12,7 +13,12 @@ export function CertificationsSection() {
   ]
 
   return (
-    <section id="certifications" className="py-16 px-4 animate-fade-in" aria-labelledby="certifications-heading">
+    <motion.section
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      id="certifications" className="py-16 px-4 animate-fade-in" aria-labelledby="certifications-heading">
       <div className="max-w-4xl mx-auto">
         <h2 id="certifications-heading" className="text-3xl font-bold text-center mb-12 animate-fade-in-up">Courses & Certifications</h2>
 
@@ -32,7 +38,7 @@ export function CertificationsSection() {
           </CardContent>
         </Card>
       </div>
-    </section>
+    </motion.section>
   )
 }
 

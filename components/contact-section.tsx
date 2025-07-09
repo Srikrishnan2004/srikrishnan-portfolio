@@ -3,6 +3,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Mail, Phone, Linkedin, Github } from "lucide-react"
 import { motion } from "framer-motion"
 import { BrizerSection, BrizerCard, BrizerBackground } from "@/components/ui/brizer-effect"
+import { useRef, useState } from "react"
+import emailjs from "emailjs-com"
 
 export function ContactSection() {
   const containerVariants = {
@@ -23,6 +25,9 @@ export function ContactSection() {
       y: 0
     }
   }
+
+  const formRef = useRef<HTMLFormElement>(null)
+  const [status, setStatus] = useState<null | "success" | "error">(null)
 
   return (
     <BrizerSection 
@@ -79,7 +84,28 @@ export function ContactSection() {
               <Card>
                 <CardContent className="p-8">
                   <h2 className="text-2xl font-bold mb-4 text-blue-700 dark:text-blue-300 text-center">Contact Us</h2>
-                  <form className="space-y-5" autoComplete="off" onSubmit={e => e.preventDefault()}>
+                  <form
+                    ref={formRef}
+                    className="space-y-5"
+                    autoComplete="off"
+                    onSubmit={async e => {
+                      e.preventDefault()
+                      setStatus(null)
+                      if (!formRef.current) return
+                      try {
+                        await emailjs.sendForm(
+                          "service_8fol2fe", // <-- Replace with your EmailJS Service ID
+                          "template_iq8zoon", // <-- Replace with your EmailJS Template ID
+                          formRef.current,
+                          "YRXn13lkOcNCG8Sv1" // <-- Replace with your EmailJS Public Key
+                        )
+                        formRef.current.reset()
+                        setStatus("success")
+                      } catch (err) {
+                        setStatus("error")
+                      }
+                    }}
+                  >
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Name</label>
                       <input
@@ -119,6 +145,12 @@ export function ContactSection() {
                     >
                       Send Message
                     </button>
+                    {status === "success" && (
+                      <div className="text-green-600 text-center mt-2">Message sent successfully!</div>
+                    )}
+                    {status === "error" && (
+                      <div className="text-red-600 text-center mt-2">Failed to send message. Please try again.</div>
+                    )}
                   </form>
                 </CardContent>
               </Card>

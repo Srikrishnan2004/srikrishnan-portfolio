@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { GraduationCap } from "lucide-react"
 import { useCardAnimation } from "@/hooks/use-card-animation"
 import { useState } from "react"
+import { motion } from "framer-motion";
 
 export function EducationSection() {
   const educationData = [
@@ -25,7 +26,12 @@ export function EducationSection() {
   ]
 
   return (
-    <section id="education" className="py-16 px-4 animate-fade-in" aria-labelledby="education-heading">
+    <motion.section
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      id="education" className="py-16 px-4 animate-fade-in" aria-labelledby="education-heading">
       <div className="max-w-4xl mx-auto">
         <h2 id="education-heading" className="text-3xl font-bold text-center mb-12 animate-fade-in-up">Education</h2>
         <div className="relative">
@@ -38,7 +44,7 @@ export function EducationSection() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }
 
