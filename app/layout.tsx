@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import ClientOGLBackgroundWrapper from "@/components/ClientOGLBackgroundWrapper";
 
 export const metadata: Metadata = {
   title: 'Srikrishnan Velayutham - Full Stack Developer & Computer Science Student',
@@ -167,7 +166,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <ClientOGLBackgroundWrapper />
         {children}
       </body>
     </html>
