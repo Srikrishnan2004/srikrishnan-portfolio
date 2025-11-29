@@ -27,14 +27,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://srikrishnanv.com'),
+  metadataBase: new URL('https://srikrishnanv.netlify.app'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://srikrishnanv.com',
+    url: 'https://srikrishnanv.netlify.app',
     title: 'Srikrishnan Velayutham - Full Stack Developer & Computer Science Student',
     description: 'Portfolio of Srikrishnan Velayutham, a Computer Science Engineering student and Full Stack Developer. Specializing in React, Node.js, Flutter, and modern web technologies.',
     siteName: 'Srikrishnan Velayutham Portfolio',
@@ -151,7 +151,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "@context": "https://schema.org",
               "@type": "WebSite",
               "name": "Srikrishnan Velayutham Portfolio",
-              "url": "https://srikrishnanv.com",
+              "url": "https://srikrishnanv.netlify.app",
               "description": "Portfolio website of Srikrishnan Velayutham, a Full Stack Developer and Computer Science student.",
               "author": {
                 "@type": "Person",

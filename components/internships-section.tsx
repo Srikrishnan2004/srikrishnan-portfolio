@@ -5,24 +5,35 @@ import { Briefcase, Calendar } from "lucide-react"
 import { useCardAnimation } from "@/hooks/use-card-animation"
 import { useState } from "react"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 export function InternshipsSection() {
   const internships = [
     {
-      title: "Software Developer Intern",
-      company: "Niti AI",
-      duration: "Jul 2024 – Sept 2024",
-      description:
-        "Worked on the LOOPX platform using React.js, Next.js, TypeScript and Golang. Built scalable back-end operations with PostgreSQL.",
-      technologies: ["React.js", "Next.js", "TypeScript", "Golang", "PostgreSQL"],
+      title: "Summer Analyst",
+      company: "Citi",
+      logo: "/company_logos/citi.jpg",
+      duration: "Jun 2025 – Jul 2025",
+      description:"Engineered automated data pipelines using Apache Spark and developed a REST API to trigger and manage the workflow.Automated Jira ticket creation triggered by developer code commits and built a dashboard to visualize key metrics, such as commit volume and corresponding ticket generation rates.",
+      technologies: ["BitBucket","Apache Spark","React.js","Python","Docker","REST APIs","Git","JIRA","Java","MySQL","Github","GCP","FastAPI","Gemini"],
     },
     {
       title: "Full-Stack Developer Intern",
       company: "Strategyfox",
-      duration: "Oct 2024 – Dec 2024",
+      logo: "/company_logos/strategy_fox.jpg",
+      duration: "Jan 2025 - May 2025",
       description:
         "Created interactive 3-D e-commerce stores with Three.js, React.js and TypeScript. Developed back-end services in Node.js & Golang; used PostgreSQL for data; deployed front-end on Netlify and back-end on GCP.",
       technologies: ["Three.js", "React.js", "TypeScript", "Node.js", "Golang", "PostgreSQL", "Netlify", "GCP"],
+    },
+    {
+      title: "Software Developer Intern",
+      company: "Niti AI",
+      logo: "/company_logos/niti-ai.webp",
+      duration: "Jul 2024 – Sept 2024",
+      description:
+        "Worked on the LOOPX platform using React.js, Next.js, TypeScript and Golang. Built scalable back-end operations with PostgreSQL.",
+      technologies: ["React.js", "Next.js", "TypeScript", "Golang", "PostgreSQL"],
     },
   ]
 
@@ -58,6 +69,7 @@ interface InternshipCardProps {
   internship: {
     title: string
     company: string
+    logo: string
     duration: string
     description: string
     technologies: string[]
@@ -119,7 +131,7 @@ function InternshipCard({ internship, index }: InternshipCardProps) {
         >
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
-              <Briefcase className="h-5 w-5 text-blue-600 animate-float" aria-hidden="true" />
+              <Image src={internship.logo} alt={`${internship.company} logo`} width={40} height={40} className="rounded-full"/>
               {internship.title}
             </CardTitle>
             <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
@@ -128,7 +140,6 @@ function InternshipCard({ internship, index }: InternshipCardProps) {
             </div>
           </CardHeader>
           <CardContent>
-            <h4 className="font-semibold text-lg mb-2 transition-colors duration-300">{internship.company}</h4>
             <p className="text-gray-600 dark:text-gray-400 mb-4 transition-colors duration-300">{internship.description}</p>
             <div className="flex flex-wrap gap-2">
               {internship.technologies.map((tech, techIndex) => (

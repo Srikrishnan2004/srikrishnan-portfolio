@@ -20,7 +20,7 @@ export function EducationSection() {
     {
       institution: "SSN College of Engineering, Chennai, India",
       degree: "Bachelor of Engineering – Computer Science",
-      details: "CGPA: 8.023 / 10",
+      details: "CGPA: 7.6 / 10",
       period: "2022 – 2026"
     }
   ]
